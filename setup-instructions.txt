@@ -1,0 +1,16 @@
+Quick notes (not exhaustive):
+
+- Recommended authentication from GitHub Actions: Workload Identity Federation
+  1. Create a Workload Identity Pool and a Provider for GitHub following:
+     https://cloud.google.com/iam/docs/workload-identity-federation
+  2. Allow the provider to impersonate the GitHub Actions service account:
+     gcloud iam service-accounts add-iam-policy-binding YOUR_SA@PROJECT.iam.gserviceaccount.com        --role roles/iam.workloadIdentityUser        --member "principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/attribute.repository/REPO"
+
+- Grant minimal roles to the GitHub Actions service account for initial deployment:
+  - roles/artifactregistry.writer
+  - roles/run.admin
+  - roles/iam.serviceAccountUser
+  - roles/resourcemanager.projectIamAdmin (if creating projects)
+  - roles/compute.networkAdmin (if configuring VPC connectors)
+
+- Alternative (less secure): create a service account key and store as GitHub secret `GCP_SA_KEY`.

@@ -1,0 +1,7 @@
+[tool.poetry]
+name = "insight-agent"
+version = "0.1.0"
+description = "Minimal Insight-Agent"
+
+[tool.flake8]
+max-line-length = 120
